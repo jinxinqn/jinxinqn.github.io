@@ -6,16 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 鈊的博客</title>
+  <title>slot是什么？ 有什么作用？原理是什么？ | 鈊的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="鈊的博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="slot是什么？有什么作用？原理是什么？slot又名插槽，是vue的内容分发机制，组件内部的模块引擎使用slot元素作为承载分发内容的出口。插槽slot是子组件的一个模板标签元素，而这一个标签元素是否显示，以及怎么显示是由父组件决定的。 slot又名三类：  默认插槽  当slot没有指定name属性值的时候一个默认展示显示插槽。一个组件内只有一个匿名插槽。   具名插槽  带有具体名字的插槽，也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="slot是什么？ 有什么作用？原理是什么？">
+<meta property="og:url" content="http://example.com/2022/05/27/slot/index.html">
 <meta property="og:site_name" content="鈊的博客">
+<meta property="og:description" content="slot是什么？有什么作用？原理是什么？slot又名插槽，是vue的内容分发机制，组件内部的模块引擎使用slot元素作为承载分发内容的出口。插槽slot是子组件的一个模板标签元素，而这一个标签元素是否显示，以及怎么显示是由父组件决定的。 slot又名三类：  默认插槽  当slot没有指定name属性值的时候一个默认展示显示插槽。一个组件内只有一个匿名插槽。   具名插槽  带有具体名字的插槽，也">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-27T03:21:38.000Z">
+<meta property="article:modified_time" content="2022-05-27T03:54:38.816Z">
 <meta property="article:author" content="JinXin">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="鈊的博客" type="application/atom+xml">
@@ -216,41 +221,110 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-slot" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+    <h1 class="article-title" itemprop="name">
+      slot是什么？ 有什么作用？原理是什么？
+    </h1>
+  
+
+
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
 <a href="/2022/05/27/slot/" class="archive-article-date">
         <time datetime="2022-05-27T03:21:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
 </a>
 
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/27/slot/" target="_blank">slot是什么？ 有什么作用？原理是什么？</a>
   
-    </h1>
-  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">382字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
 
 
-        <div class="article-info info-on-right">
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="slot是什么？有什么作用？原理是什么？"><a href="#slot是什么？有什么作用？原理是什么？" class="headerlink" title="slot是什么？有什么作用？原理是什么？"></a>slot是什么？有什么作用？原理是什么？</h1><p>slot又名插槽，是vue的内容分发机制，组件内部的模块引擎使用slot元素作为承载分发内容的出口。插槽slot是子组件的一个模板标签元素，而这一个标签元素是否显示，以及怎么显示是由父组件决定的。</p>
+<p>slot又名三类：</p>
+<ul>
+<li><p>默认插槽</p>
+<ul>
+<li>当slot没有指定name属性值的时候一个默认展示显示插槽。一个组件内只有一个匿名插槽。</li>
+</ul>
+</li>
+<li><p>具名插槽</p>
+<ul>
+<li>带有具体名字的插槽，也就是带有name属性的slot，一个组件可以出现多个具名插槽。</li>
+<li>作用域插槽：默认插槽、具名插槽的一个变体，可以是匿名插槽，也可以是具名插槽，该插槽的不同点是在子组件渲染作用域插槽时，可以将子组件内部的数据传递给父组件，让父组件根据子组件的传递过来的数据决定如何渲染该插槽。</li>
+</ul>
+</li>
+<li><p>实现原理</p>
+<ul>
+<li>当子组件vm实例化时，获取到父组件传入的slot标签的内容，存放在vm.$slot中，默认插槽为vm.$slot.default,具名插槽为vm.$slot.xxx, xxx为插槽名，当组件执行渲染函数时候，遇到到slot标签，使用$slot中的内容进行替换，此时可以为插槽传递数据，若存在数据，则可称该插槽为作用域插槽。</li>
+</ul>
+</li>
+</ul>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          JinXin
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2022/05/27/slot/" title="slot是什么？ 有什么作用？原理是什么？" target="_blank">http://example.com/2022/05/27/slot/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -262,137 +336,107 @@
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/27/slot/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/27/post-asset-folder/" class="archive-article-date">
-        <time datetime="2022-05-27T01:51:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/27/post-asset-folder/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">鈊的第二篇文章</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/27/post-asset-folder/" target="_blank">鈊的第二篇文章</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/26/my-first-blog/" class="archive-article-date">
-        <time datetime="2022-05-26T10:00:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-26</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/26/my-first-blog/" target="_blank">鈊的第一篇文章</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/26/hello-world/" class="archive-article-date">
-        <time datetime="2022-05-26T09:42:03.707Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-26</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/26/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
 
 
           </div>
@@ -433,8 +477,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
