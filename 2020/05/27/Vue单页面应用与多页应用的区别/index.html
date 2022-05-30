@@ -6,16 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 鈊的博客</title>
+  <title>Vue单页面应用与多页应用的区别 | 鈊的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="鈊的博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="概念：  SPA但页面应用（SinglePage Web Application），指只有一个主页面的应用，一开始只需要加载一次js、css等相关资源。所有内容都包含在住页面，对每一个功能模块组件化。单页面应用跳转，就是切换相关组件，仅仅刷新局部资源。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue单页面应用与多页应用的区别">
+<meta property="og:url" content="http://example.com/2020/05/27/Vue%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%E4%B8%8E%E5%A4%9A%E9%A1%B5%E5%BA%94%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="鈊的博客">
+<meta property="og:description" content="概念：  SPA但页面应用（SinglePage Web Application），指只有一个主页面的应用，一开始只需要加载一次js、css等相关资源。所有内容都包含在住页面，对每一个功能模块组件化。单页面应用跳转，就是切换相关组件，仅仅刷新局部资源。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-27T06:15:14.000Z">
+<meta property="article:modified_time" content="2022-05-30T12:51:08.178Z">
 <meta property="article:author" content="鈊">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="鈊的博客" type="application/atom+xml">
@@ -219,41 +224,153 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Vue单页面应用与多页应用的区别" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/30/%E8%B7%AF%E7%94%B1%E7%9A%84hash%E5%92%8Chistory%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-        <time datetime="2022-05-30T14:10:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/30/%E8%B7%AF%E7%94%B1%E7%9A%84hash%E5%92%8Chistory%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">路由的hash和history模式的区别</a>
   
+    <h1 class="article-title" itemprop="name">
+      Vue单页面应用与多页应用的区别
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/05/27/Vue%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%E4%B8%8E%E5%A4%9A%E9%A1%B5%E5%BA%94%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+        <time datetime="2020-05-27T06:15:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">444字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3></li>
+</ul>
+<p>SPA但页面应用（SinglePage Web Application），指只有一个主页面的应用，一开始只需要加载一次js、css等相关资源。所有内容都包含在住页面，对每一个功能模块组件化。单页面应用跳转，就是切换相关组件，仅仅刷新局部资源。</p>
+<span id="more"></span>)
+<p>MPA多页面应用（MultiPage Application），指有多个独立页面的应用，每个页面必须重复加载js、css等相关资源。多页面应用跳转，需要整页资源刷新。</p>
+<ul>
+<li><h3 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h3></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">对比项&#x2F;模式</th>
+<th align="center">SPA</th>
+<th align="center">MPA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">结构</td>
+<td align="center">一个主页面+许多模块的组件</td>
+<td align="center">许多完整的页面</td>
+</tr>
+<tr>
+<td align="center">体验</td>
+<td align="center">页面切换快，体验佳；当初此加载文件过多时，需要做相关的优化。</td>
+<td align="center">页面切换慢，网速慢的时候，体验尤其不好</td>
+</tr>
+<tr>
+<td align="center">资源文件</td>
+<td align="center">组件公用的资源只需要加载一次</td>
+<td align="center">每个页面都要自己加载公用的资源</td>
+</tr>
+<tr>
+<td align="center">适用场景</td>
+<td align="center">对体验度和流畅度有较高要求的应用，不利于SEO(可借助SSR优化SEO)</td>
+<td align="center">适用于对SEO要求较高的应用</td>
+</tr>
+<tr>
+<td align="center">过渡动画</td>
+<td align="center">Vue提供了transition的封装组件容易实现</td>
+<td align="center">很难实现</td>
+</tr>
+<tr>
+<td align="center">内容更新</td>
+<td align="center">相关组件的切换，即局部更新</td>
+<td align="center">整体HTML的切换，浪费性能（重复HTTP请求）</td>
+</tr>
+<tr>
+<td align="center">路由模式</td>
+<td align="center">可以使用hash，也可以使用history</td>
+<td align="center">普通链接跳转</td>
+</tr>
+<tr>
+<td align="center">传递数据</td>
+<td align="center">因为单页面，使用全局变量就好（Vuex）</td>
+<td align="center">cookie、localStorage等缓存方案，URL参数，调用接口保存等</td>
+</tr>
+<tr>
+<td align="center">相关成本</td>
+<td align="center">前期开发成本较高，后期维护较为容易</td>
+<td align="center">前期咖啡成本低，后期维护就比较麻烦，因为可能一功能需要改很多地方</td>
+</tr>
+</tbody></table>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          鈊
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2020/05/27/Vue单页面应用与多页应用的区别/" title="Vue单页面应用与多页应用的区别" target="_blank">http://example.com/2020/05/27/Vue单页面应用与多页应用的区别/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -265,398 +382,64 @@
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/30/keep-alive%E4%B8%AD%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%9C%89%E5%93%AA%E4%BA%9B/" class="archive-article-date">
-        <time datetime="2022-05-30T14:00:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2020/05/27/vue%E4%B8%AD%E5%B0%81%E8%A3%85%E7%9A%84%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E5%85%B6%E7%84%B6%E5%90%8E%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E6%9B%B4%E6%96%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          vue中封装的数组方法有哪些，其然后实现页面更新
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/27/nextTick%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%9C%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">$nextTick原理及作用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/30/keep-alive%E4%B8%AD%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%9C%89%E5%93%AA%E4%BA%9B/" target="_blank">keep-alive中的生命周期有哪些</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/30/%E4%B8%80%E8%88%AC%E5%9C%A8%E5%93%AA%E4%B8%AA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%B7%E6%B1%82%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" class="archive-article-date">
-        <time datetime="2022-05-30T13:34:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/30/%E4%B8%80%E8%88%AC%E5%9C%A8%E5%93%AA%E4%B8%AA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%B7%E6%B1%82%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" target="_blank">一般在哪个生命周期请求异步数据</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/05/30/created%E5%92%8Cmounted%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-        <time datetime="2022-05-30T13:08:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/05/30/created%E5%92%8Cmounted%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">created和mounted的区别</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/05/30/Vue%E5%AD%90%E7%BB%84%E4%BB%B6%E5%92%8C%E7%88%B6%E7%BB%84%E4%BB%B6%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="archive-article-date">
-        <time datetime="2020-05-30T12:52:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/05/30/Vue%E5%AD%90%E7%BB%84%E4%BB%B6%E5%92%8C%E7%88%B6%E7%BB%84%E4%BB%B6%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" target="_blank">Vue子组件和父组件执行顺序</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/05/30/%E8%AF%B4%E4%B8%80%E4%B8%8BVue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="archive-article-date">
-        <time datetime="2020-05-30T10:58:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/05/30/%E8%AF%B4%E4%B8%80%E4%B8%8BVue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_blank">说一下Vue的生命周期</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/05/30/%E5%AF%B9vue%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-        <time datetime="2020-05-30T03:29:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/05/30/%E5%AF%B9vue%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">对vue设计原则的理解</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/05/30/%E5%AF%B9Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-        <time datetime="2020-05-30T02:36:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/05/30/%E5%AF%B9Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">对Vue组件化的理解</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/05/30/v-if%E5%92%8Cv-for%E5%93%AA%E4%B8%AA%E4%BC%98%E5%85%88%E7%BA%A7%E6%9B%B4%E9%AB%98-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BA%94%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96/" class="archive-article-date">
-        <time datetime="2020-05-30T02:31:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/05/30/v-if%E5%92%8Cv-for%E5%93%AA%E4%B8%AA%E4%BC%98%E5%85%88%E7%BA%A7%E6%9B%B4%E9%AB%98-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BA%94%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96/" target="_blank">v-if和v-for哪个优先级更高?如果同时出现，应如何优化?</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/05/29/MVVM%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="archive-article-date">
-        <time datetime="2020-05-29T07:16:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/05/29/MVVM%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_blank">MVVM的优缺点</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -697,8 +480,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

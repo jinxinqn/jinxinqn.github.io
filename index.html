@@ -226,6 +226,573 @@
             
 
   
+    <article id="post-路由的hash和history模式的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/05/30/%E8%B7%AF%E7%94%B1%E7%9A%84hash%E5%92%8Chistory%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">路由的hash和history模式的区别</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/05/30/%E8%B7%AF%E7%94%B1%E7%9A%84hash%E5%92%8Chistory%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+        <time datetime="2022-05-30T14:10:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ol>
+<li>hash模式</li>
+</ol>
+<ul>
+<li>简介：hash模式是开发中默认的模式，他的Url带着一个#，例如：<em><a target="_blank" rel="noopener" href="http://www.abc.com/#/vue">http://www.abc.com/#/vue</a></em>,它的hash值就是#&#x2F;vue。</li>
+<li>特点：hash值会出现在URL里面，但是不会出现在HTTP请求中，对后端完全没有影响、所以改变hash值，不会重新加载页面。这种模式的浏览器支持度很好，低版本的IE浏览器也支持这种模式。hash路由被称为是前端路由，已经成为SPA(单页面应用)的标配。</li>
+<li>原理：hash模式主要原理就是onhashchange()事件;</li>
+</ul>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onhashchange</span> = <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">oldURL</span>, event.<span class="property">newURL</span>);</span><br><span class="line">  <span class="keyword">let</span> hash = location.<span class="property">hash</span>.<span class="title function_">slice</span>(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>使用onhashchange()事件的好处就是，在页面的哈数值发生变化时，无需向后端发起请求，window就可以监听事件的改变，并按规则加载相应的代码。除此之外，hash值变化对应的URL都会被浏览器记录下来，这样浏览器就能实现页面的前进和后退。虽然是没有请求后端服务器，但是页面的hash值和对应的URL关联起来了。
+</code></pre>
+<ol start="2">
+<li>history模式</li>
+</ol>
+<ul>
+<li>简介:history模式的URL中没有#，它使用的是传统的路由分发模式，即用户在输入一个URL时，服务器会接收这个请求，并解析这个URL，然后做出相应的逻辑处理。</li>
+<li>特点： 当使用history模式时，URL就像这样：http：&#x2F;&#x2F;abc.com&#x2F;user&#x2F;id。相比hash模式更加好看。但是，history模式需要后台配置支持、如果后台没有正确配置，访问时会返回404。</li>
+<li>Api：history api 可以分为两大部分，切换历史状态和修改历史状态：<ul>
+<li>修改历史状态: 包含了HTML5 History Interface 中新增的pushState()和replaceState()方法，这两个方法应用与浏览器的历史记录栈，提供了对历史记录进行修改的功能。只是当他们进行修改时，虽然修改了url，但浏览器不会立即向后端发送请求、如果要做到改变url但又不刷新页面的效果，就需要前端用上这两个API.</li>
+<li>切换历史状态：包括forward()、back()、go()三个方法，对应浏览器的前进，后退，跳转操作。<br>虽然 history 模式丢弃了丑陋的#。但是，它也有自己的缺点，就是 在刷新页面的时候，如果没有相应的路由或资源，就会刷出 404 来。 如果想要切换到 history 模式，就要进行以下配置（后端也要进行配 置）：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title function_">vueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&#x27;history&#x27;</span>,</span><br><span class="line">  <span class="attr">routes</span>:[...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>两种模式对比<br>调用 history.pushState() 相比于直接修改 hash，存在以下优势: <ul>
+<li>pushState() 设置的新 URL 可以是与当前 URL 同源的任意 URL；而 hash 只可修改 # 后面的部分，因此只能设置与当前 URL 同文档的 URL；</li>
+<li>pushState() 设置的新 URL 可以与当前 URL 一模一样，这样也会把 记录添加到栈中；而 hash 设置的新值必须与原来不一样才会触发动 作将记录添加到栈中；</li>
+<li>pushState()通过stateObject 参数可以添加任意类型的数据到记 录中；而 hash 只可添加短字符串；</li>
+<li>pushState() 可额外设置 title 属性供后续使用。 </li>
+<li>hash 模式下，仅 hash 符号之前的 url 会被包含在请求中，后端如果 没有做到对路由的全覆盖，也不会返回 404 错误；history 模式下， 前端的 url 必须和实际向后端发起请求的 url 一致，如果没有对用的 路由处理，将返回 404 错误。</li>
+<li>hash 模式和 history 模式都有各自的优势和缺陷，还是要根据实际 情况选择性的使用</li>
+</ul>
+</li>
+</ol>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-keep-alive中的生命周期有哪些" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/05/30/keep-alive%E4%B8%AD%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%9C%89%E5%93%AA%E4%BA%9B/" target="_blank">keep-alive中的生命周期有哪些</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/05/30/keep-alive%E4%B8%AD%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%9C%89%E5%93%AA%E4%BA%9B/" class="archive-article-date">
+        <time datetime="2022-05-30T14:00:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><p>keep-alive是Vue提供的一个内置组件，用来对组件进行缓存–在组件切换过程中将状态保留在内存中，防止重复渲染Dom</p>
+</li>
+<li><p>如果为一个组件包裹了keep-alive，那么它会多出两个生命周期：</p>
+</li>
+<li><p>deactivated、activated。同时，beforeDestroy和destroyed就不会再被触发了，因为组件不会被真正销毁。</p>
+</li>
+<li><p>当组件被换掉时，会被缓存到内存中、触发deactivated生命周期;</p>
+</li>
+<li><p>当组件被切回来时，再去缓存里找这个组件、触发activated钩子函数。</p>
+</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-一般在哪个生命周期请求异步数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/05/30/%E4%B8%80%E8%88%AC%E5%9C%A8%E5%93%AA%E4%B8%AA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%B7%E6%B1%82%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" target="_blank">一般在哪个生命周期请求异步数据</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/05/30/%E4%B8%80%E8%88%AC%E5%9C%A8%E5%93%AA%E4%B8%AA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%B7%E6%B1%82%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" class="archive-article-date">
+        <time datetime="2022-05-30T13:34:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>我们可以在钩子含税created、beforeMount、mounted中进行调用，因为在这三个钩子函数中，data已经创建，可以将服务端返回的数据进行赋值。</p>
+<p>推荐在created钩子函数中调用异步请求，因为在created钩子函数中调用异步请求有以下优点:</p>
+<ul>
+<li>能更快获取到服务端数据，减少页面加载时间，用户体验更好;</li>
+<li>SSR不支持beforeMount、mounted钩子函数，放在created中有助于一致性。</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-created和mounted的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/05/30/created%E5%92%8Cmounted%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">created和mounted的区别</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/05/30/created%E5%92%8Cmounted%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+        <time datetime="2022-05-30T13:08:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>created: 在模板渲染成html后调用，即通常是初始化某些属性值，然后在渲染成视图。</p>
+<p>mounted: 在模板渲染成html后调用，通常是初始化页面完成后，在对html的dom节点进行一些需要的操作。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue子组件和父组件执行顺序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/05/30/Vue%E5%AD%90%E7%BB%84%E4%BB%B6%E5%92%8C%E7%88%B6%E7%BB%84%E4%BB%B6%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" target="_blank">Vue子组件和父组件执行顺序</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/05/30/Vue%E5%AD%90%E7%BB%84%E4%BB%B6%E5%92%8C%E7%88%B6%E7%BB%84%E4%BB%B6%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="archive-article-date">
+        <time datetime="2020-05-30T12:52:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><p>加载渲染过程：</p>
+<ol>
+<li>父组件 beforeCreate</li>
+<li>父组件 create</li>
+<li>父组件 beforeMount</li>
+<li>子组件 beforeCreate</li>
+<li>子组件 create</li>
+<li>子组件 beforeMount</li>
+<li>子组件 mounted</li>
+<li>父组件 mounted</li>
+</ol>
+</li>
+<li><p>更新过程：</p>
+<ol>
+<li>父组件 beforeUpdate</li>
+<li>子组件 beforeUpdate</li>
+<li>子组件 updated</li>
+<li>父组件 updated</li>
+</ol>
+</li>
+<li><p>销毁过程：</p>
+<ol>
+<li>父组件 beforeDestroy</li>
+<li>子组件 beforeDestroy</li>
+<li>子组件 destroyed</li>
+<li>父组件 destroyed</li>
+</ol>
+</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-说一下Vue的生命周期" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/05/30/%E8%AF%B4%E4%B8%80%E4%B8%8BVue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_blank">说一下Vue的生命周期</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/05/30/%E8%AF%B4%E4%B8%80%E4%B8%8BVue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="archive-article-date">
+        <time datetime="2020-05-30T10:58:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Vue实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom-&gt;渲染、更新-&gt;渲染、卸载等一系列过程，称这是Vue的生命周期。</p>
+<ol>
+<li><p>beforeCreate(创建前)：数据观测和初始化事件还未开始，此时data的响应式追踪、event&#x2F;watcher都还没有被设置，也就是说不能被访问data、computed、watch、methods上的方法和数据。</p>
+</li>
+<li><p>created(创建后)： 实例创建完成，实例上配置的options包括data、computed、watch、methods等都配置完成，但是此时喧然的节点还未挂载到DOM，所以不能访问到$el属性。</p>
+</li>
+<li><p>beforeMount(挂载前)：在挂载开始之前被调用，相关的render函数首次被调用。实例已完成了以下的配置：编译模板，把data里面的数据和模板生成html。此时还没有挂载html到页面上。</p>
+</li>
+<li><p>mounted(挂载后)：在el被新创建的vm.$el替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的dom对象。完成模板中的html渲染到html页面中。此过程中进行ajax交互。</p>
+</li>
+<li><p>beforeUpdate(更新前)：响应式数据更新时调用，此时虽然响应式数据更新了，但是对应的真实dom还没有被渲染。</p>
+</li>
+<li><p>updated(更新后)： 在由于数据更改导致的虚拟Dom重新渲染和打补丁之后调用。此时DOM已经根据响应式数据的变化更新了。调用时的，组件Dom已经更新，所以可以执行依赖于Dom的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器渲染期间不被调用。</p>
+</li>
+<li><p>beforeDestroy(销毁前)：实例销毁之前调用。这一步，实例仍然完全可用，this仍能获取到实例。</p>
+</li>
+<li><p>destroyed(销毁后):实例销毁后调用，调用后，vue实例指示的所有东西都会解绑，所有的事件监听器会被移除，所有的子实例也会被销毁。改钩子在服务端渲染期间不会被调用。</p>
+</li>
+</ol>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-对vue设计原则的理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -234,7 +801,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/05/30/%E5%AF%B9vue%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">对vue设计原则的理解</a>
+	  <a class="article-title" href="/2020/05/30/%E5%AF%B9vue%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">对vue设计原则的理解</a>
   
     </h1>
   
@@ -242,8 +809,8 @@
 
   
   
-<a href="/2022/05/30/%E5%AF%B9vue%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-        <time datetime="2022-05-30T03:29:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+<a href="/2020/05/30/%E5%AF%B9vue%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
+        <time datetime="2020-05-30T03:29:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
 </a>
 
   
@@ -325,7 +892,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/05/30/%E5%AF%B9Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">对Vue组件化的理解</a>
+	  <a class="article-title" href="/2020/05/30/%E5%AF%B9Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">对Vue组件化的理解</a>
   
     </h1>
   
@@ -333,8 +900,8 @@
 
   
   
-<a href="/2022/05/30/%E5%AF%B9Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-        <time datetime="2022-05-30T02:36:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+<a href="/2020/05/30/%E5%AF%B9Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E7%9A%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
+        <time datetime="2020-05-30T02:36:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
 </a>
 
   
@@ -422,7 +989,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/05/30/v-if%E5%92%8Cv-for%E5%93%AA%E4%B8%AA%E4%BC%98%E5%85%88%E7%BA%A7%E6%9B%B4%E9%AB%98-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BA%94%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96/" target="_blank">v-if和v-for哪个优先级更高?如果同时出现，应如何优化?</a>
+	  <a class="article-title" href="/2020/05/30/v-if%E5%92%8Cv-for%E5%93%AA%E4%B8%AA%E4%BC%98%E5%85%88%E7%BA%A7%E6%9B%B4%E9%AB%98-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BA%94%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96/" target="_blank">v-if和v-for哪个优先级更高?如果同时出现，应如何优化?</a>
   
     </h1>
   
@@ -430,8 +997,8 @@
 
   
   
-<a href="/2022/05/30/v-if%E5%92%8Cv-for%E5%93%AA%E4%B8%AA%E4%BC%98%E5%85%88%E7%BA%A7%E6%9B%B4%E9%AB%98-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BA%94%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96/" class="archive-article-date">
-        <time datetime="2022-05-30T02:31:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-30</time>
+<a href="/2020/05/30/v-if%E5%92%8Cv-for%E5%93%AA%E4%B8%AA%E4%BC%98%E5%85%88%E7%BA%A7%E6%9B%B4%E9%AB%98-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BA%94%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96/" class="archive-article-date">
+        <time datetime="2020-05-30T02:31:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
 </a>
 
   
@@ -504,7 +1071,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/05/29/MVVM%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_blank">MVVM的优缺点</a>
+	  <a class="article-title" href="/2020/05/29/MVVM%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_blank">MVVM的优缺点</a>
   
     </h1>
   
@@ -512,8 +1079,8 @@
 
   
   
-<a href="/2022/05/29/MVVM%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-05-29T07:16:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-29</time>
+<a href="/2020/05/29/MVVM%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="archive-article-date">
+        <time datetime="2020-05-29T07:16:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
 </a>
 
   
@@ -592,527 +1159,9 @@
 
 
   
-    <article id="post-vue初始化页面闪动问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/05/29/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B5%E9%9D%A2%E9%97%AA%E5%8A%A8%E9%97%AE%E9%A2%98/" target="_blank">vue初始化页面闪动问题</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/05/29/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B5%E9%9D%A2%E9%97%AA%E5%8A%A8%E9%97%AE%E9%A2%98/" class="archive-article-date">
-        <time datetime="2022-05-29T07:06:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-29</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>使用vue开发时，在vue初始化之前，由于div是不归vue管的，所以我们写的代码还没有解析的情况下会容易出现花屏现象，看到类似于的字样，虽然一般情况下这个时间很短暂，但是还是有必要解决这个问题的。</p>
-<ol>
-<li>在元素身上添加v-cloak的属性</li>
-<li>在css中添加 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[v-cloak]</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>:none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Vue模板编译原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/05/29/Vue%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" target="_blank">Vue模板编译原理</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/05/29/Vue%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" class="archive-article-date">
-        <time datetime="2022-05-29T06:56:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-29</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>vue中的模板template无法被浏览器解析并渲染，因为这这不属于浏览器的标准，不是正确的html语法，所以需要将template转化成一个JavaScript函数，这样浏览器就可以执行这一个函数并渲染出对应的html元素，就可以让视图跑起来了，这一个转化的过程，就为模板编译。模板编译又分为三个阶段，解析parse，优化optimize,生成generate，最终生成可执行函数render。</p>
-<p>解析阶段:遍历AST,找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行diff比较时，直接跳过这一些静态节点，优化runtime的性能。</p>
-<p>生成阶段：将最终的AST转化为render函数字符串。</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-delete和Vue-delete删除数组的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/05/27/delete%E5%92%8CVue-delete%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">delete和Vue.delete删除数组的区别</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/05/27/delete%E5%92%8CVue-delete%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-        <time datetime="2022-05-27T12:58:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>delete只是被删除的元素变成了empty&#x2F;undefined其他的元素的键值还是不变。</p>
-<p>Vue.delete直接删除了数组 改变了数组的键值。</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-assets和static的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/05/27/assets%E5%92%8Cstatic%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_blank">assets和static的区别</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/05/27/assets%E5%92%8Cstatic%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-        <time datetime="2022-05-27T12:54:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li>相同点： assets 和 static 两个都是存放静态资源文件。项目中所 需要的资源文件图片，字体图标，样式文件等都可以放在这两个文件 下，这是相同点 </li>
-<li>不相同点：<ul>
-<li>assets 中存放的静态资源文件在项目打包时，也就是运 行 npm run build 时会将 assets 中放置的静态资源文件进行打包 上传，所谓打包简单点可以理解为压缩体积，代码格式化。而压缩后 的静态资源文件最终也都会放置在 static 文件中跟着 index.html 一同上传至服务器。</li>
-<li>static 中放置的静态资源文件就不会要走打包 压缩格式化等流程，而是直接进入打包好的目录，直接上传至服务器。 因为避免了压缩直接进行上传，在打包时会提高一定的效率，但是 static 中的资源文件由于没有进行压缩等操作，所以文件的体积也 就相对于 assets 中打包后的文件提交较大点。在服务器中就会占据 更大的空间。</li>
-</ul>
-</li>
-<li>建议： 将项目中 template 需要的样式文件 js 文件等都可以放置在 assets 中，走打包这一流程。减少体积。而项目中引入的第三方的 资源文件如 iconfoont.css 等文件可以放置在 static 中，因为这 些引入的第三方文件已经经过处理，不再需要处理，直接上传。</li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vue的优点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/05/27/vue%E7%9A%84%E4%BC%98%E7%82%B9/" target="_blank">vue的优点</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/05/27/vue%E7%9A%84%E4%BC%98%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-05-27T12:40:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li>轻量级框架：只关注视图层，是一个构建数据的视图集合，大小只有几十kb;</li>
-<li>简单易学：国人开发，易于理解和学习；</li>
-<li>双向数据绑定：保留了angular的特点，在操作方面更为简单；</li>
-<li>组件化：保留了react的优点，实现了html的封装和重用，在构建单页面应用方面有着独特的特点；</li>
-<li>视图、数据、结构分离：使数据的更改更为简单，不需要进行逻辑代码的修改，只需要操作数据就能完成相关操作；</li>
-<li>虚拟DOM：dom操作是非常耗费性能的，不再使用原生的dom操作节点，极大解放dom操作，但具体操作的还是dom不过是换了另一种方式；</li>
-<li>运行速度更快：相比较于react而言，同样是操作DOM,就性能而言，vue存在很大的优势。</li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-子组件可以直接改变父组件的数据吗？" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/05/27/%E5%AD%90%E7%BB%84%E4%BB%B6%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E6%94%B9%E5%8F%98%E7%88%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E5%90%97%EF%BC%9F/" target="_blank">子组件可以直接改变父组件的数据吗？</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/05/27/%E5%AD%90%E7%BB%84%E4%BB%B6%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E6%94%B9%E5%8F%98%E7%88%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E5%90%97%EF%BC%9F/" class="archive-article-date">
-        <time datetime="2022-05-27T12:31:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>子组件不可以直接改变父组件的数据。</p>
-<p>这样做主要是为了维护父子组件的单向数据流。每次父级组件发生更新时，子组件中所有的prop都将会刷新为最新的值、如果这样做了，vue会在浏览器的控制台中发出警告。</p>
-<p>vue提倡单向数据流，即父级props的更新会流向子组件，但是反过来则不行。这是为了防止意外的改变父组件状体，使得应用的数据流变得难以理解，导致数据流混乱。如果破环了单向数据流，当应用复杂时，debug的成本会非常高。</p>
-<p>只能通过$emit派发一个自定义事件，父组件接收到后，由父组件修改。</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
