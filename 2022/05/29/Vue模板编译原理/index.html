@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>$nextTick原理及作用 | 鈊的博客</title>
+  <title>Vue模板编译原理 | 鈊的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Vue的nexTick其本质是对JavaScript执行原理EventLoop的一种应用。 nextTick的核心是利用了如Promise、MutationObserver、setImmediate.setTimeout的原生JavaScript方法来模拟对应的微&#x2F;宏任务的实现，本质是为了利用JavaScript的这些异步回调任务队列来实现Vue框架中自己的异步回调队列。">
+  <meta name="description" content="vue中的模板template无法被浏览器解析并渲染，因为这这不属于浏览器的标准，不是正确的html语法，所以需要将template转化成一个JavaScript函数，这样浏览器就可以执行这一个函数并渲染出对应的html元素，就可以让视图跑起来了，这一个转化的过程，就为模板编译。模板编译又分为三个阶段，解析parse，优化optimize,生成generate，最终生成可执行函数render。 解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="$nextTick原理及作用">
-<meta property="og:url" content="http://example.com/2022/05/27/nextTick%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%9C%E7%94%A8/index.html">
+<meta property="og:title" content="Vue模板编译原理">
+<meta property="og:url" content="http://example.com/2022/05/29/Vue%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="鈊的博客">
-<meta property="og:description" content="Vue的nexTick其本质是对JavaScript执行原理EventLoop的一种应用。 nextTick的核心是利用了如Promise、MutationObserver、setImmediate.setTimeout的原生JavaScript方法来模拟对应的微&#x2F;宏任务的实现，本质是为了利用JavaScript的这些异步回调任务队列来实现Vue框架中自己的异步回调队列。">
+<meta property="og:description" content="vue中的模板template无法被浏览器解析并渲染，因为这这不属于浏览器的标准，不是正确的html语法，所以需要将template转化成一个JavaScript函数，这样浏览器就可以执行这一个函数并渲染出对应的html元素，就可以让视图跑起来了，这一个转化的过程，就为模板编译。模板编译又分为三个阶段，解析parse，优化optimize,生成generate，最终生成可执行函数render。 解">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-27T05:45:41.000Z">
-<meta property="article:modified_time" content="2022-05-27T12:41:43.427Z">
+<meta property="article:published_time" content="2022-05-29T06:56:19.000Z">
+<meta property="article:modified_time" content="2022-05-29T07:17:19.491Z">
 <meta property="article:author" content="鈊">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -224,14 +224,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-nextTick原理及作用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Vue模板编译原理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      $nextTick原理及作用
+      Vue模板编译原理
     </h1>
   
 
@@ -243,8 +243,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/05/27/nextTick%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%9C%E7%94%A8/" class="archive-article-date">
-        <time datetime="2022-05-27T05:45:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-27</time>
+<a href="/2022/05/29/Vue%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" class="archive-article-date">
+        <time datetime="2022-05-29T06:56:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-29</time>
 </a>
 
   
@@ -257,7 +257,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">607字</span>
+      <span class="post-count">203字</span>
     </span>
   </span>
 
@@ -266,7 +266,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
+      <span class="post-count">1分</span>
     </span>
   </span>
 </div>
@@ -277,30 +277,9 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Vue的nexTick其本质是对JavaScript执行原理EventLoop的一种应用。</p>
-<p>nextTick的核心是利用了如Promise、MutationObserver、setImmediate.setTimeout的原生JavaScript方法来模拟对应的微&#x2F;宏任务的实现，本质是为了利用JavaScript的这些异步回调任务队列来实现Vue框架中自己的异步回调队列。</p>
-<span id="more"></span>)
-<p>nextTick不仅是vue内部的异步队列的调用方法，同时也允许开发者在实际项目中使用这个方法来满足实际应用中对Dom更新数据时机的后续逻辑处理</p>
-<p>nextTick是典型的将底部JacaScript执行原理应用到具体案例中的示例，引入异步更新队列机制的原因：</p>
-<ol>
-<li><p>如果是同步更新，则多次对一个或多个属性赋值，会频繁触发UI&#x2F;DOM的渲染，可以减少一些无用渲染</p>
-</li>
-<li><p>由于VirtualDOM的引入，每一次状态发生变化后，状态变化的信号会发送给组件，组件内部使用VirtualDOM进行计算得出需要更新的具体的DOM节点，然后对DOM进行更新操作，每次更新状态后的渲染过程需要更多的计算，而这种无用功也将浪费更多的性能，所以异步渲染变得更加至关重要</p>
-</li>
-<li><p>Vue采用了数据驱动视图的思想，但是在一些情况下，仍然需要操作DOM。</p>
-</li>
-<li><p>有时候，可能遇到这样的情况，DOM1的数据发生了变化，而DOM2需要从DOM1中获取数据，那这时就会发现DOM2的视图并没用更新，这时就需要用到了nextTick了。由于获取数据的操作是异步的，所以，在上面的情况中，就要将DOM2获取数据的操作写在写在$nextTick中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.$nextTick(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="comment">//获取数据的操作</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2></li>
-</ol>
-<ul>
-<li><p>在数据变化后执行的某个操作，而这个操作需要使用随数据变化而变化的DOM结构的时候，这个操作就需要方法在nextTick()的回调函数中。</p>
-</li>
-<li><p>在vue生命周期中，如果在created（）钩子进行DOM操作，也一定要放在nextTick（）的回调函数中。</p>
-<p>因为在created()钩子函数中，页面的DOM还未渲染，这时候也没办法操作DOM,所以，此时如果想要操作DOM，必须将操作的代码放在nextTick()的回调函数中。</p>
-</li>
-</ul>
+    <p>vue中的模板template无法被浏览器解析并渲染，因为这这不属于浏览器的标准，不是正确的html语法，所以需要将template转化成一个JavaScript函数，这样浏览器就可以执行这一个函数并渲染出对应的html元素，就可以让视图跑起来了，这一个转化的过程，就为模板编译。模板编译又分为三个阶段，解析parse，优化optimize,生成generate，最终生成可执行函数render。</p>
+<p>解析阶段:遍历AST,找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行diff比较时，直接跳过这一些静态节点，优化runtime的性能。</p>
+<p>生成阶段：将最终的AST转化为render函数字符串。</p>
 
     
 
@@ -315,7 +294,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2022/05/27/nextTick原理及作用/" title="$nextTick原理及作用" target="_blank">http://example.com/2022/05/27/nextTick原理及作用/</a>
+          <a href="http://example.com/2022/05/29/Vue模板编译原理/" title="Vue模板编译原理" target="_blank">http://example.com/2022/05/29/Vue模板编译原理/</a>
         </li>
         
         <li>
@@ -356,18 +335,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2022/05/27/Vue%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%E4%B8%8E%E5%A4%9A%E9%A1%B5%E5%BA%94%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/05/29/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B5%E9%9D%A2%E9%97%AA%E5%8A%A8%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Vue单页面应用与多页应用的区别
+          vue初始化页面闪动问题
         
       </div>
     </a>
   
   
-    <a href="/2022/05/27/slot/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">slot是什么？ 有什么作用？原理是什么？</div>
+    <a href="/2022/05/27/delete%E5%92%8CVue-delete%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">delete和Vue.delete删除数组的区别</div>
       <i class="icon-circle-right"></i>
     </a>
   
