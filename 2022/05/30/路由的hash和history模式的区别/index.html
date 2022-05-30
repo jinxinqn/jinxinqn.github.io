@@ -18,7 +18,7 @@
 <meta property="og:description" content="hash模式   简介：hash模式是开发中默认的模式，他的Url带着一个#，例如：http:&#x2F;&#x2F;www.abc.com&#x2F;#&#x2F;vue,它的hash值就是#&#x2F;vue。 特点：hash值会出现在URL里面，但是不会出现在HTTP请求中，对后端完全没有影响、所以改变hash值，不会重新加载页面。这种模式的浏览器支持度很好，低版本的IE浏览器也支持这种模式。hash路由被称为是前端路由，已经成">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-30T14:10:22.000Z">
-<meta property="article:modified_time" content="2022-05-30T14:53:02.674Z">
+<meta property="article:modified_time" content="2022-05-30T14:58:55.239Z">
 <meta property="article:author" content="鈊">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -286,8 +286,9 @@
 <li>原理：hash模式主要原理就是onhashchange()事件;</li>
 </ul>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onhashchange</span> = <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">oldURL</span>, event.<span class="property">newURL</span>);</span><br><span class="line">  <span class="keyword">let</span> hash = location.<span class="property">hash</span>.<span class="title function_">slice</span>(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>使用onhashchange()事件的好处就是，在页面的哈数值发生变化时，无需向后端发起请求，window就可以监听事件的改变，并按规则加载相应的代码。除此之外，hash值变化对应的URL都会被浏览器记录下来，这样浏览器就能实现页面的前进和后退。虽然是没有请求后端服务器，但是页面的hash值和对应的URL关联起来了。
-</code></pre>
+<ul>
+<li>使用onhashchange()事件的好处就是，在页面的哈数值发生变化时，无需向后端发起请求，window就可以监听事件的改变，并按规则加载相应的代码。除此之外，hash值变化对应的URL都会被浏览器记录下来，这样浏览器就能实现页面的前进和后退。虽然是没有请求后端服务器，但是页面的hash值和对应的URL关联起来了。</li>
+</ul>
 <ol start="2">
 <li>history模式</li>
 </ol>

@@ -264,8 +264,9 @@
 <li>原理：hash模式主要原理就是onhashchange()事件;</li>
 </ul>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onhashchange</span> = <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">oldURL</span>, event.<span class="property">newURL</span>);</span><br><span class="line">  <span class="keyword">let</span> hash = location.<span class="property">hash</span>.<span class="title function_">slice</span>(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>使用onhashchange()事件的好处就是，在页面的哈数值发生变化时，无需向后端发起请求，window就可以监听事件的改变，并按规则加载相应的代码。除此之外，hash值变化对应的URL都会被浏览器记录下来，这样浏览器就能实现页面的前进和后退。虽然是没有请求后端服务器，但是页面的hash值和对应的URL关联起来了。
-</code></pre>
+<ul>
+<li>使用onhashchange()事件的好处就是，在页面的哈数值发生变化时，无需向后端发起请求，window就可以监听事件的改变，并按规则加载相应的代码。除此之外，hash值变化对应的URL都会被浏览器记录下来，这样浏览器就能实现页面的前进和后退。虽然是没有请求后端服务器，但是页面的hash值和对应的URL关联起来了。</li>
+</ul>
 <ol start="2">
 <li>history模式</li>
 </ol>
